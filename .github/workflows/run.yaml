@@ -52,6 +52,6 @@ jobs:
         if git diff --staged --quiet; then
           echo "No changes to commit"
         else
-          git commit -m "GitHub Actions build #${{ github.run_number }}"
+          git commit -m "GitHub Actions build v${{ github.run_number }}"
           git push
         fi
