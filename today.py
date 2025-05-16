@@ -6,12 +6,12 @@ from lxml import etree
 import time
 import hashlib
 
-# Fine-grained personal access token with All Repositories access:
+# Fine-grained personal access token with All Repositories access.
 # Account permissions: read:Followers, read:Starring, read:Watching
 # Repository permissions: read:Commit statuses, read:Contents, read:Issues, read:Metadata, read:Pull Requests
 # Issues and pull requests permissions not needed at the moment, but may be used in the future
 HEADERS = {'authorization': 'token '+ os.environ['ACCESS_TOKEN']}
-USER_NAME = os.environ['USER_NAME'] # 'Andrew6rant'
+USER_NAME = os.environ.get('USER_NAME', 'xcezz')
 QUERY_COUNT = {'user_getter': 0, 'follower_getter': 0, 'graph_repos_stars': 0, 'recursive_loc': 0, 'graph_commits': 0, 'loc_query': 0}
 
 
@@ -52,7 +52,7 @@ def simple_request(func_name, query, variables):
 
 def graph_commits(start_date, end_date):
     """
-    Uses GitHub's GraphQL v4 API to return my total commit count
+    Uses GitHub's GraphQL v4 API to return the total commit count
     """
     query_count('graph_commits')
     query = '''
@@ -72,7 +72,7 @@ def graph_commits(start_date, end_date):
 
 def graph_repos_stars(count_type, owner_affiliation, cursor=None, add_loc=0, del_loc=0):
     """
-    Uses GitHub's GraphQL v4 API to return my total repository, star, or lines of code count.
+    Uses GitHub's GraphQL v4 API to return the total repository, star, or lines of code count.
     """
     query_count('graph_repos_stars')
     query = '''
@@ -300,16 +300,17 @@ def svg_overwrite(filename, age_data, commit_data, star_data, repo_data, contrib
     """
     Parse SVG files and update elements with my age, commits, stars, repositories, and lines written
     """
-    tree = etree.parse(filename)
+    tree = etree.parse(filename, parser=etree.XMLParser())
     root = tree.getroot()
+    justify_format(root, 'age_data', age_data, 49)
     justify_format(root, 'commit_data', commit_data, 22)
     justify_format(root, 'star_data', star_data, 14)
-    justify_format(root, 'repo_data', repo_data, 6)
+    justify_format(root, 'repo_data', repo_data, 7)
     justify_format(root, 'contrib_data', contrib_data)
     justify_format(root, 'follower_data', follower_data, 10)
-    justify_format(root, 'loc_data', loc_data[2], 9)
+    justify_format(root, 'loc_data', loc_data[2], 16)
     justify_format(root, 'loc_add', loc_data[0])
-    justify_format(root, 'loc_del', loc_data[1], 7)
+    justify_format(root, 'loc_del', loc_data[1], 6)
     tree.write(filename, encoding='utf-8', xml_declaration=True)
 
 
@@ -341,7 +342,7 @@ def find_and_replace(root, element_id, new_text):
 
 def commit_counter(comment_size):
     """
-    Counts up my total commits, using the cache file created by cache_builder.
+    Counts up total commits, using the cache file created by cache_builder.
     """
     total_commits = 0
     filename = 'cache/'+hashlib.sha256(USER_NAME.encode('utf-8')).hexdigest()+'.txt' # Use the same filename as cache_builder
@@ -418,16 +419,11 @@ def formatter(query_type, difference, funct_return=False, whitespace=0):
 
 
 if __name__ == '__main__':
-    """
-    Andrew Grant (Andrew6rant), 2022-2025
-    """
     print('Calculation times:')
-    # define global variable for owner ID and calculate user's creation date
-    # e.g {'id': 'MDQ6VXNlcjU3MzMxMTM0'} and 2019-11-03T21:15:07Z for username 'Andrew6rant'
     user_data, user_time = perf_counter(user_getter, USER_NAME)
     OWNER_ID, acc_date = user_data
     formatter('account data', user_time)
-    age_data, age_time = perf_counter(daily_readme, datetime.datetime(2002, 7, 5))
+    age_data, age_time = perf_counter(daily_readme, datetime.datetime(1992, 3, 28))
     formatter('age calculation', age_time)
     total_loc, loc_time = perf_counter(loc_query, ['OWNER', 'COLLABORATOR', 'ORGANIZATION_MEMBER'], 7)
     formatter('LOC (cached)', loc_time) if total_loc[-1] else formatter('LOC (no cache)', loc_time)
