@@ -44,7 +44,7 @@ jobs:
       run: |
         python readme.py
     - name: Commit and push changes
-      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      if: github.ref == 'refs/heads/main'
       run: |
         git config --global user.name "xcezz/actions-bot"
         git config --global user.email "actions-bot@xcezz.github.io"
