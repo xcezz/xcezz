@@ -47,7 +47,7 @@ text, tspan {white-space: pre;}
 <tspan x="390" y="50" class="cc">. </tspan><tspan class="key">OS</tspan>:<tspan class="cc"> .......................... </tspan><tspan class="value">Windows 10, Linux Debian 12</tspan>
 <tspan x="390" y="70" class="cc">. </tspan><tspan class="key">Host</tspan>:<tspan class="cc"> .......................................... </tspan><tspan class="value">TIKI GmbH</tspan>
 <tspan x="390" y="90" class="cc">. </tspan><tspan class="key">Kernel</tspan>:<tspan class="cc"> .................................. </tspan><tspan class="value">DevOps Engineer</tspan>
-<tspan x="390" y="110" class="cc">. </tspan><tspan class="key">Uptime</tspan>:<tspan class="cc" id="age_data_dots"> ...................... </tspan><tspan class="value" id="age_data">33 years, 8 months, 15 days</tspan>
+<tspan x="390" y="110" class="cc">. </tspan><tspan class="key">Uptime</tspan>:<tspan class="cc" id="age_data_dots"> ...................... </tspan><tspan class="value" id="age_data">33 years, 8 months, 16 days</tspan>
 <tspan x="390" y="130" class="cc">. </tspan>
 <tspan x="390" y="150" class="cc">. </tspan><tspan class="key">Location</tspan>:<tspan class="cc"> ............................ </tspan><tspan class="value">Schwandorf, Germany</tspan>
 <tspan x="390" y="170" class="cc">. </tspan><tspan class="key">Education</tspan>:<tspan class="cc"> ...................... </tspan><tspan class="value">University of Regensburg</tspan>
