@@ -456,7 +456,7 @@ if __name__ == '__main__':
     formatter('account data', user_time)
     age_data, age_time = perf_counter(daily_readme, datetime.datetime(1992, 3, 28))
     formatter('age calculation', age_time)
-    total_loc, loc_time = perf_counter(loc_query, ['OWNER', 'COLLABORATOR', 'ORGANIZATION_MEMBER'], 7)
+    total_loc, loc_time = perf_counter(loc_query, ['OWNER', 'COLLABORATOR'], 7)
     formatter('LOC (cached)', loc_time) if total_loc[-1] else formatter('LOC (no cache)', loc_time)
     commit_data, commit_time = perf_counter(commit_counter, 7)
     (repo_data, star_data), repo_star_time = perf_counter(graph_repos_stars, 'both', ['OWNER']) # stars and repos come from the same response
